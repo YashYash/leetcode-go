@@ -28,7 +28,7 @@ func TestAddTwoNumbers(t *testing.T) {
 	}{
 		{
 			l1:     getListNode(Ints{0, 0, 1}),
-			l2:     getListNode(Ints{0, 1, 2}),
+			l2:     getListNode(Ints{0, 1, 1}),
 			tc:     "1",
 			expect: getListNode(Ints{0, 1, 2}),
 			err:    main.ErrInput,

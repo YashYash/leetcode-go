@@ -12,7 +12,7 @@ var ErrInput = errors.New("Not items in the array add up to target")
 // Nums - a single node that composes the list
 type Nums []int
 type Targets []int
-type TrackedIndex map[float64]bool
+type NumToIndex map[int]int
 
 func timeTrack(start time.Time, name string) {
 	elapsed := time.Since(start)
@@ -23,18 +23,14 @@ func timeTrack(start time.Time, name string) {
 // Solution function
 func Solution(tc string, nums Nums, target int) (Targets, error) {
 	defer timeTrack(time.Now(), "Test Case: "+tc)
-	fmt.Println(nums)
 	targets := Targets{}
-	fmt.Println("---------------")
+	numToIndex := NumToIndex{}
 	for i1, num := range nums {
-		for i2, num2 := range nums {
-			fmt.Println(num, num2)
-			fmt.Println(i1, i2)
-			if i1 != i2 && num+num2 == target {
-				targets = append(targets, Targets{i1, i2}...)
-				return targets, nil
-			}
+		compliment := target - num
+		if _, ok := numToIndex[compliment]; ok {
+			return Targets{numToIndex[compliment], i1}, nil
 		}
+		numToIndex[num] = i1
 	}
 	if len(targets) < 1 {
 		fmt.Println(ErrInput)
